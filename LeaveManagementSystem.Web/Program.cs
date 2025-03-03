@@ -18,6 +18,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //    Good for static resource or a file that has to be present all the time
 
 builder.Services.AddScoped<ILeaveTypesService, LeaveTypesService>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
