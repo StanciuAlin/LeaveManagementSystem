@@ -1,12 +1,13 @@
 ﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
 
-namespace LeaveManagementSystem.Web.Services
+namespace LeaveManagementSystem.Web.Services.LeaveTypes
 {
     public interface ILeaveTypesService
     {
         Task<bool> CheckIfLeaveTypeNameExists(string name);
         Task<bool> CheckIfLeaveTypeNameExistsOrEdit(LeaveTypeEditVM leaveTypeEdit);
         Task Create(LeaveTypeCreateVM model);
+        Task<bool> DaysExceedMaximum(int leaveTypeId, int days);
         Task Edit(LeaveTypeEditVM model);
         Task<T?> Get<T>(int id) where T : class;
         Task<List<LeaveTypeReadOnlyVM>> GetAll();

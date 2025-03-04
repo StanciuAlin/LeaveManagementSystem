@@ -1,10 +1,10 @@
-﻿@model LeaveTypeReadOnlyVM
+﻿@model LeaveManagementSystem.Web.Data.Period
 
 @{
     ViewData["Title"] = $"{Model.Name} Details";
 }
 
-<h1>@Model.Name Details</h1>
+<h1>@Model.Name details</h1>
 
 <div>
     <hr />
@@ -16,10 +16,16 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NumberOfDays)
+            @Html.DisplayNameFor(model => model.StartDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NumberOfDays)
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
         </dd>
     </dl>
 </div>

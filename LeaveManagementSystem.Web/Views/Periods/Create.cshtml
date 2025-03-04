@@ -1,10 +1,10 @@
-﻿@model LeaveTypeCreateVM
+﻿@model LeaveManagementSystem.Web.Data.Period
 
 @{
-    ViewData["Title"] = "Create leave type";
+    ViewData["Title"] = "Create period";
 }
 
-<h1>Create a new leave type</h1>
+<h1>Create a new period</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,14 +15,19 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <br/>
+            <br />
             <div class="form-group">
-                <label asp-for="NumberOfDays" class="control-label"></label>
-                <input asp-for="NumberOfDays" class="form-control" />
-                <span asp-validation-for="NumberOfDays" class="text-danger"></span>
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
-            @* Test for overposting <input type="hidden" name="Id" value="12"/> *@
-            <br/>
+            <br />
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-outline-success" />
                 <a asp-action="Index" class="btn btn-outline-dark">Back to Dashboard</a>

@@ -11,7 +11,7 @@ namespace LeaveManagementSystem.Web.Models.LeaveTypes
     {
         public string Name { get; set; } = string.Empty;
 
-        [Display(Name = "Max allocation of Days")]
+        [Display(Name = "Maximum Allocation Of Days")]
         public int NumberOfDays { get; set; }
     }
 }
