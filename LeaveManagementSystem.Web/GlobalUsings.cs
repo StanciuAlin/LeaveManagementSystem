@@ -9,5 +9,6 @@ global using Microsoft.AspNetCore.Mvc.RazorPages;
 global using Microsoft.AspNetCore.WebUtilities;
 global using System.ComponentModel.DataAnnotations;
 global using System.Text;
+global using System.Linq;
 global using System.Text.Encodings.Web;
 global using LeaveManagementSystem.Web.Common;

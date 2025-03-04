@@ -4,9 +4,9 @@ using LeaveManagementSystem.Web.Models.LeaveTypes;
 
 namespace LeaveManagementSystem.Web.MappingProfiles
 {
-    public class LeaveyTypeAutoMapperProfile : Profile
+    public class LeaveTypeAutoMapperProfile : Profile
     {
-        public LeaveyTypeAutoMapperProfile()
+        public LeaveTypeAutoMapperProfile()
         {
             CreateMap<LeaveType, LeaveTypeReadOnlyVM>();
             //.ForMember(dest => dest.Days, opt => opt.MapFrom(src => src.NumberOfDays));
