@@ -1,8 +1,5 @@
-﻿using LeaveManagementSystem.Web.Models.LeaveAllocations;
-using LeaveManagementSystem.Web.Services.LeaveAllocations;
-using LeaveManagementSystem.Web.Services.LeaveTypes;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using LeaveManagementSystem.Application.Services.LeaveAllocations;
+using LeaveManagementSystem.Application.Services.LeaveTypes;
 
 namespace LeaveManagementSystem.Web.Controllers;
 
@@ -49,7 +46,7 @@ public class LeaveAllocationController(ILeaveAllocationsService _leaveAllocation
         if (await _leaveTypesService.DaysExceedMaximum(allocation.LeaveType.Id,
             allocation.Days)) // I have the value from <form> <input>
         {
-            ModelState.AddModelError(nameof(allocation.Days), 
+            ModelState.AddModelError(nameof(allocation.Days),
                 $"The allocation exceeds the maximum leave type value which is {allocation.LeaveType.NumberOfDays} days");
         }
         if (ModelState.IsValid)

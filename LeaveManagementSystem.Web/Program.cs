@@ -1,34 +1,19 @@
-using Microsoft.AspNetCore.Identity;
+using LeaveManagementSystem.Application;
 using Microsoft.EntityFrameworkCore;
-using LeaveManagementSystem.Web.Data;
-using System.Reflection;
-using LeaveManagementSystem.Web.Services.Email;
-using LeaveManagementSystem.Web.Services.LeaveTypes;
-using LeaveManagementSystem.Web.Services.LeaveAllocations;
-using LeaveManagementSystem.Web.Services.LeaveRequests;
-using LeaveManagementSystem.Web.Services.Periods;
-using LeaveManagementSystem.Web.Models.Periods;
-using LeaveManagementSystem.Web.Services.Users;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+// Refactor: Adding the data services registration to the Data project
+DataServicesRegistration.AddDataServices(builder.Services, builder.Configuration);
+// Refactor: After we refactoring the project in Layers, the registration is in Application project
+ApplicationServicesRegistration.AddApplicationServices(builder.Services);
 
-// AddTransient lifetime services are created each time they are requested. Eg: Make API calls
-// AddScoped lifetime services are created once per request. Eg: Controller and action
-// AddSingleton lifetime services are created the first time they are requested and then every subsequent request will use the same instance.
-//    Good for static resource or a file that has to be present all the time
-
-builder.Services.AddScoped<ILeaveTypesService, LeaveTypesService>();
-builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
-builder.Services.AddScoped<ILeaveRequestsService, LeaveRequestsService>();
-builder.Services.AddScoped<IPeriodsService, PeriodsService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Host.UseSerilog((ctx, config) => 
+    config.WriteTo.Console()
+    .ReadFrom.Configuration(ctx.Configuration)
+);
 
 builder.Services.AddAuthorization(options =>
 {
@@ -39,9 +24,18 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+// Firstly it worked because we have the same project
+//builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+// Add AutoMapper in Application project and then reference it here in the web project
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = false;
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
