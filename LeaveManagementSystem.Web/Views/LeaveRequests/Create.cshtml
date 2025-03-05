@@ -25,7 +25,7 @@
             <br />
             <div class="form-group">
                 <label asp-for="LeaveTypeId" class="control-label"></label>
-                <select asp-for="LeaveTypeId" class ="form-select" asp-items="@Model.LeaveTypes"></select>
+                <select asp-for="LeaveTypeId" class="form-select" asp-items="@Model.LeaveTypes"></select>
             </div>
             <br />
             <div class="form-group">
@@ -43,5 +43,53 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function addWeekdays(date, days) {
+            date.setDate(date.getDate());
+            var counter = 0;
+                if(days > 0 ){
+                    while (counter < days) {
+                        date.setDate(date.getDate() + 1 ); // Add a day to get the date tomorrow
+                        var check = date.getDay(); // turns the date into a number (0 to 6)
+                            if (check == 0 || check == 6) {
+                                // Do nothing it's the weekend (0=Sun & 6=Sat)
+                            }
+                            else{
+                                counter++;  // It's a weekday so increase the counter
+                            }
+                    }
+                }
+            return date;
+        }
+
+        $( function() {
+             var date = new Date();
+            var currentMonth = date.getMonth();
+            var currentDate = date.getDate();
+            currentDate = currentDate;
+            var currentYear = date.getFullYear();
+            //var maxDate = addWeekdays(date, 7);
+
+            $("#StartDate").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true,
+                beforeShowDay: $.datepicker.noWeekends,
+                minDate: new Date(currentYear, currentMonth, currentDate),
+                maxDate: new Date(currentYear, 12, 31) // maxDate
+            });
+            $("#EndDate").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true,
+                beforeShowDay: $.datepicker.noWeekends,
+                minDate: new Date(currentYear, currentMonth, currentDate),
+                maxDate: new Date(currentYear, 12, 31) // maxDate
+            });
+        });
+    </script>
 }
