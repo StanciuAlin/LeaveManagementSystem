@@ -67,15 +67,15 @@
         }
 
         $( function() {
-             var date = new Date();
+            var date = new Date();
             var currentMonth = date.getMonth();
             var currentDate = date.getDate();
             currentDate = currentDate;
             var currentYear = date.getFullYear();
-            //var maxDate = addWeekdays(date, 7);
+            var maxDate = addWeekdays(date, 7);
 
             $("#StartDate").datepicker({
-                dateFormat: "yy-mm-dd",
+                dateFormat: "DD, d MM, yy",
                 changeMonth: true,
                 changeYear: true,
                 beforeShowDay: $.datepicker.noWeekends,
@@ -83,7 +83,7 @@
                 maxDate: new Date(currentYear, 12, 31) // maxDate
             });
             $("#EndDate").datepicker({
-                dateFormat: "yy-mm-dd",
+                dateFormat: "DD, d MM, yy",
                 changeMonth: true,
                 changeYear: true,
                 beforeShowDay: $.datepicker.noWeekends,

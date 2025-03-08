@@ -3,7 +3,7 @@
     public class EmployeeAllocationVM : EmployeeListVM
     {
         [Display(Name = "Date of Birth")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:DD, d MM, yy}")]
         [DataType(DataType.Date)]
         public DateOnly DateOfBirth { get; set; }
         public bool IsCompletedAllocation { get; set; }
